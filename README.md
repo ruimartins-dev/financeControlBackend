@@ -25,7 +25,22 @@ As configurações estão no arquivo `src/main/resources/application.properties`
 - **Password**: `postgres`
 - **Server Port**: `8080`
 
-Você pode modificar essas configurações conforme necessário.
+### Configuração com Variáveis de Ambiente (Recomendado para Produção)
+
+Para ambientes de produção, é recomendado usar variáveis de ambiente em vez de credenciais hard-coded:
+
+```bash
+export SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/financecontrol
+export SPRING_DATASOURCE_USERNAME=seu_usuario
+export SPRING_DATASOURCE_PASSWORD=sua_senha
+```
+
+Ou no `application.properties`:
+```properties
+spring.datasource.url=${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/financecontrol}
+spring.datasource.username=${SPRING_DATASOURCE_USERNAME:postgres}
+spring.datasource.password=${SPRING_DATASOURCE_PASSWORD:postgres}
+```
 
 ## Como Executar
 
