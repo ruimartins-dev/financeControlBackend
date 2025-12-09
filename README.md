@@ -87,25 +87,12 @@ O Spring Boot Actuator também fornece um endpoint de health check:
 GET http://localhost:8080/actuator/health
 ```
 
-Resposta exemplo:
+**Nota de Segurança**: O endpoint de health está configurado para mostrar detalhes completos apenas quando autorizado. Em produção, considere adicionar autenticação para este endpoint.
+
+Resposta exemplo (sem autorização):
 ```json
 {
-  "status": "UP",
-  "components": {
-    "db": {
-      "status": "UP",
-      "details": {
-        "database": "PostgreSQL",
-        "validationQuery": "isValid()"
-      }
-    },
-    "diskSpace": {
-      "status": "UP"
-    },
-    "ping": {
-      "status": "UP"
-    }
-  }
+  "status": "UP"
 }
 ```
 
