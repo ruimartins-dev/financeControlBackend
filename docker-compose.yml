@@ -1,0 +1,38 @@
+﻿services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: financial-control-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: financial_control
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d financial_control"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: financial-control-app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: jdbc:postgresql://postgres:5432/financial_control
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      SERVER_PORT: 8080
+      JAVA_OPTS: "-Xms256m -Xmx512m"
+    ports:
+      - "8080:8080"
+volumes:
+  postgres_data:
+    name: financial-control-postgres-data

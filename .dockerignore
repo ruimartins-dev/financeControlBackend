@@ -1,0 +1,27 @@
+# Ignore build output
+logs/
+*.log
+# Ignore logs
+
+*.md
+README.md
+# Ignore documentation
+
+.dockerignore
+Dockerfile
+docker-compose.yml
+# Ignore Docker files (not needed in build context)
+
+.gitignore
+.git/
+# Ignore Git
+
+*.swo
+*.swp
+.vscode/
+*.iml
+.idea/
+# Ignore IDE files
+
+target/
+
